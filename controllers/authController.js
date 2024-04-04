@@ -34,12 +34,12 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     let user = null;
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
   
     // If User Enters Email
-    if (email) {
-      user = await User.findOne({ email:email });
+    if (username) {
+      user = await User.findOne({ username:username });
     }
 
     if (user === null) {
@@ -50,7 +50,7 @@ const login = async (req, res) => {
         const userToken = jwt.sign(
           {
             id: user.id,
-            email: user.email,
+            username: user.username,
             role: user.role,
           },
           process.env.JWT_SECRET,
