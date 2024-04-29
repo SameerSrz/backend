@@ -28,6 +28,9 @@ connectDatabase();
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/serviceProviderAuth", require("./routes/serviceProvider"));
+
+
 app.get("/", (req, res) => {
   res.send("<h1>Backend Server is Running</h1>");
 });
