@@ -65,7 +65,7 @@ const login = async (req, res) => {
           token: userToken,
         });
       } else {
-        sendResponse(res, 401);
+        sendResponse(res, 405);
       }
     }
   } catch (error) {
