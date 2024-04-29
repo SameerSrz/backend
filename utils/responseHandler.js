@@ -39,7 +39,7 @@ const sendResponse = (res, statusCode, data) => {
           success: false,
           message: "Data Not Found!",
         });
-        case 405:
+      case 405:
         return res.status(statusCode).json({
           success: false,
           message: "Invalid Password!",
