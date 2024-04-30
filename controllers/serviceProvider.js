@@ -1,7 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sendResponse } = require("../utils/responseHandler");
-const ServiceProvider = require("../models/serviceProvider")
+const ServiceProvider = require("../models/serviceProvider");
+const { getDataUri } = require("../utils/features");
 const cloudinary = require('cloudinary').v2;
 
 
@@ -9,7 +10,7 @@ const register = async (req, res) => {
   try {
     console.log(req.body)
     const { username, fullName, password, email, confirmPassword, service, phone } = req.body;
-    const image = req.file.filename;
+    const image = getDataUri(req.file);
 
     if(password !== confirmPassword){
       sendResponse(res, 401);
@@ -28,7 +29,7 @@ const register = async (req, res) => {
         //   sendResponse(res, 500, result.error.message);
         // }
     
-        const result = await cloudinary.uploader.upload(image.buffer); 
+        const result = await cloudinary.uploader.upload(image.content); 
 
         const imageUrl = result.secure_url;
 
@@ -39,7 +40,10 @@ const register = async (req, res) => {
             email,
             service,
             phone,
-            avatar: imageUrl
+            avatar: {
+                public_id: result.public_id,
+                url: result.secure_url
+            }
         });
 
 

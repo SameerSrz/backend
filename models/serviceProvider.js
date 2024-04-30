@@ -61,7 +61,12 @@ const serviceProvider = new mongoose.Schema({
     default: "serviceProvider",
   },
   avatar:{
-    type: String,
+    public_id: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
  },
  createdAt:{
   type: Date,
