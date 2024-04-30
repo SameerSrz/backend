@@ -9,7 +9,7 @@ const register = async (req, res) => {
   try {
     console.log(req.body)
     const { username, fullName, password, email, confirmPassword, service, phone } = req.body;
-    const image = req.files.image;
+    const image = req.file;
 
     if(password !== confirmPassword){
       sendResponse(res, 401);
@@ -28,7 +28,7 @@ const register = async (req, res) => {
         //   sendResponse(res, 500, result.error.message);
         // }
     
-        const result = await cloudinary.uploader.upload(image.tempFilePath); 
+        const result = await cloudinary.uploader.upload(image.buffer); 
 
         const imageUrl = result.secure_url;
 
