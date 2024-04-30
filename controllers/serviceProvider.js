@@ -23,6 +23,20 @@ const register = async (req, res) => {
 
     // Upload image to Cloudinary
     const result = await cloudinary.uploader.upload(req.image);
+if (result.error) {
+  console.error('Cloudinary upload error:', result.error.message);
+  sendResponse(res, 500, result.error.message);
+}
+
+// Handle file upload using upload.single middleware
+upload.single('file')(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+        // Handle multer errors
+        return sendResponse(res, 201, 'File upload error');
+    } else if (err) {
+        // Handle other errors
+        return sendResponse(res, 600, err);
+    }})
     const imageUrl = result.secure_url;
 
         await ServiceProvider.create({
