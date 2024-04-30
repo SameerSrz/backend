@@ -27,7 +27,7 @@ const register = async (req, res) => {
           return sendResponse(res,201, 'File upload error');
         } else if (err) {
           // Handle other errors
-          return sendResponse(res,500, err);
+          return sendResponse(res,600, 'err');
         }
 
         await ServiceProvider.create({
