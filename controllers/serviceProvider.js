@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sendResponse } = require("../utils/responseHandler");
 const ServiceProvider = require("../models/serviceProvider")
+const upload = require("../upload")
 
 const register = async (req, res) => {
   try {
@@ -19,14 +20,27 @@ const register = async (req, res) => {
       }
     });
 
-    await ServiceProvider.create({
-        username: username,
-        fullName,
-        password: encryptedPassword,
-        email,
-        service,
-        phone,
-    });
+    // Handle file upload using upload.single middleware
+    upload.single('file')(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+          // Handle multer errors
+          return sendResponse(res,201, 'File upload error');
+        } else if (err) {
+          // Handle other errors
+          return sendResponse(res,500, err);
+        }
+
+        await ServiceProvider.create({
+            username: username,
+            fullName,
+            password: encryptedPassword,
+            email,
+            service,
+            phone,
+            avatar: req.file.filename
+        });
+
+})
 
     sendResponse(res, 201);
   } catch (error) {

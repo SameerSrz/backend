@@ -1,4 +1,4 @@
-const sendResponse = (res, statusCode, data) => {
+const sendResponse = (res, statusCode, data,) => {
     switch (statusCode) {
       case 200:
         return res.status(statusCode).json({
@@ -49,6 +49,11 @@ const sendResponse = (res, statusCode, data) => {
           success: false,
           message: "Internal Server Error!",
           error: data.message,
+        });
+      case 600:
+        return res.status(statusCode).json({
+          success: false,
+          message: data,
         });
       default:
         let success = false;
