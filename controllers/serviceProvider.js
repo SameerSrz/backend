@@ -32,7 +32,7 @@ const register = async (req, res) => {
             email,
             service,
             phone,
-            // avatar: imageUrl
+            avatar: imageUrl
         });
 
 
