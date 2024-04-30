@@ -8,8 +8,9 @@ const cloudinary = require('cloudinary').v2;
 const register = async (req, res) => {
   try {
     console.log(req.body)
-    const { username, fullName, password, email, confirmPassword, service, phone, image } = req.body;
-    
+    const { username, fullName, password, email, confirmPassword, service, phone } = req.body;
+    const image = req.files.image;
+
     if(password !== confirmPassword){
       sendResponse(res, 401);
     }
@@ -27,7 +28,7 @@ const register = async (req, res) => {
         //   sendResponse(res, 500, result.error.message);
         // }
     
-        const result = await cloudinary.uploader.upload(image.path); 
+        const result = await cloudinary.uploader.upload(image.tempFilePath); 
 
         const imageUrl = result.secure_url;
 
