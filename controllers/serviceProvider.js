@@ -20,14 +20,14 @@ const register = async (req, res) => {
         sendResponse(res, 400, err);
       }
     });
-
-    // Upload image to Cloudinary
-//     const result = await cloudinary.uploader.upload(req.image);
-// if (result.error) {
-//   console.error('Cloudinary upload error:', result.error.message);
-//   sendResponse(res, 500, result.error.message);
-// }
-        const result = await cloudinary.uploader.upload(image); // Upload the image to Cloudinary
+        // Upload image to Cloudinary
+        //     const result = await cloudinary.uploader.upload(req.image);
+        // if (result.error) {
+        //   console.error('Cloudinary upload error:', result.error.message);
+        //   sendResponse(res, 500, result.error.message);
+        // }
+    
+        const result = await cloudinary.uploader.upload(image.path); 
 
         const imageUrl = result.secure_url;
 
