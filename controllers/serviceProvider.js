@@ -22,8 +22,8 @@ const register = async (req, res) => {
     });
 
     // Upload image to Cloudinary
-    // const result = await cloudinary.uploader.upload(req.file.path);
-    // const imageUrl = result.secure_url;
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const imageUrl = result.secure_url;
 
         await ServiceProvider.create({
             username: username,
