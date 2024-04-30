@@ -22,7 +22,7 @@ const register = async (req, res) => {
     });
 
     // Upload image to Cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path);
+    const result = await cloudinary.uploader.upload(req.image);
     const imageUrl = result.secure_url;
 
         await ServiceProvider.create({
