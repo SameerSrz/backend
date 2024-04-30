@@ -9,7 +9,7 @@ const register = async (req, res) => {
   try {
     console.log(req.body)
     const { username, fullName, password, email, confirmPassword, service, phone } = req.body;
-    const image = req.file;
+    const image = req.file.filename;
 
     if(password !== confirmPassword){
       sendResponse(res, 401);
