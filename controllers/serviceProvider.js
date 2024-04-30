@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sendResponse } = require("../utils/responseHandler");
 const ServiceProvider = require("../models/serviceProvider")
-const upload = require("../upload")
 const cloudinary = require('cloudinary').v2;
 
 
