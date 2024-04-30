@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const dotenv = require("dotenv").config();
 const { errorHandler } = require("./middleware/errorHandler");
 const connectDatabase = require("./Db/database")
+const cloudinary = require('cloudinary').v2;
+
 
 // App Initialization
 const app = express();
@@ -25,6 +27,12 @@ app.use(express.urlencoded({ limit: "200mb", extended: true }));
 
 // connecting database
 connectDatabase();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+}); 
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));

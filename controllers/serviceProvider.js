@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const { sendResponse } = require("../utils/responseHandler");
 const ServiceProvider = require("../models/serviceProvider")
 const upload = require("../upload")
+const cloudinary = require('cloudinary').v2;
+
 
 const register = async (req, res) => {
   try {
@@ -20,15 +22,9 @@ const register = async (req, res) => {
       }
     });
 
-    // Handle file upload using upload.single middleware
-    upload.single('file')(req, res, async (err) => {
-        if (err instanceof multer.MulterError) {
-          // Handle multer errors
-          return sendResponse(res,201, 'File upload error');
-        } else if (err) {
-          // Handle other errors
-          return sendResponse(res,600, 'err');
-        }
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const imageUrl = result.secure_url;
 
         await ServiceProvider.create({
             username: username,
@@ -37,10 +33,10 @@ const register = async (req, res) => {
             email,
             service,
             phone,
-            avatar: req.file.filename
+            avatar: imageUrl
         });
 
-})
+
 
     sendResponse(res, 201);
   } catch (error) {
