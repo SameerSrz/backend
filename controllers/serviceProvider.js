@@ -27,9 +27,9 @@ const register = async (req, res) => {
 //   console.error('Cloudinary upload error:', result.error.message);
 //   sendResponse(res, 500, result.error.message);
 // }
-    // const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(image); // Upload the image to Cloudinary
 
-    // const imageUrl = result.secure_url;
+        const imageUrl = result.secure_url;
 
         await ServiceProvider.create({
             username: username,
@@ -38,7 +38,7 @@ const register = async (req, res) => {
             email,
             service,
             phone,
-            avatar: image
+            avatar: imageUrl
         });
 
 
