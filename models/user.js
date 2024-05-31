@@ -7,9 +7,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your name!"],
   },
-  lastName:{
+  fullName:{
     type: String,
-    // required: [true, "Please enter your name!"],
+    required: [true, "Please enter your name!"],
   },
   email:{
     type: String,
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     minLength: [4, "Password should be greater than 4 characters"],
     select: false,
   },
-  phoneNumber:{
+  phone:{
     type: Number,
   },
   addresses:[
@@ -57,7 +57,12 @@ const userSchema = new mongoose.Schema({
     default: "user",
   },
   avatar:{
-    type: String,
+    public_id: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
  },
  createdAt:{
   type: Date,
@@ -67,27 +72,5 @@ const userSchema = new mongoose.Schema({
  resetPasswordTime: Date,
 });
 
-
-// //  Hash password
-// userSchema.pre("save", async function (next){
-//   if(!this.isModified("password")){
-//     next();
-//   }
-
-//   this.password = await bcrypt.hash(this.password, 12);
-//   this.confirmPassword = await bcrypt.hash(this.confirmPassword,12);
-// });
-
-// // jwt token
-// userSchema.methods.getJwtToken = function () {
-//   return jwt.sign({ id: this._id}, process.env.JWT_SECRET_KEY,{
-//     expiresIn: process.env.JWT_EXPIRES,
-//   });
-// };
-
-// compare password
-// userSchema.methods.comparePassword = async function (enteredPassword) {
-//   return await bcrypt.compare(enteredPassword, this.password);
-// };
 
 module.exports = mongoose.model("User", userSchema);

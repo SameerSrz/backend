@@ -4,46 +4,40 @@ const { sendResponse } = require("../utils/responseHandler");
 const ServiceProvider = require("../models/serviceProvider");
 const { getDataUri } = require("../utils/features");
 const cloudinary = require('cloudinary').v2;
-
+const User = require("../models/user")
 
 const register = async (req, res) => {
-  try {
-    console.log(req.body)
-    const { username, fullName, password, email, confirmPassword, service, phone } = req.body;
-    const image = getDataUri(req.file);
+        try {
+            console.log(req.body)
+            const { username, fullName, password, email, confirmPassword, service, phone } = req.body;
+            const image = getDataUri(req.file);
 
-    if(password !== confirmPassword){
-      sendResponse(res, 401);
-    }
-    const encryptedPassword = bcrypt.hashSync(password, 10, (err, hash) => {
-      if (!err) {
-        return hash;
-      } else {
-        sendResponse(res, 400, err);
-      }
-    });
-        // Upload image to Cloudinary
-        //     const result = await cloudinary.uploader.upload(req.image);
-        // if (result.error) {
-        //   console.error('Cloudinary upload error:', result.error.message);
-        //   sendResponse(res, 500, result.error.message);
-        // }
+            if(password !== confirmPassword){
+            sendResponse(res, 401);
+            }
+            const encryptedPassword = bcrypt.hashSync(password, 10, (err, hash) => {
+            if (!err) {
+                return hash;
+            } else {
+                sendResponse(res, 400, err);
+            }
+            });
     
         const result = await cloudinary.uploader.upload(image.content); 
 
-        const imageUrl = result.secure_url;
+        // const imageUrl = result.secure_url;
 
-        await ServiceProvider.create({
+        await User.create({
             username: username,
             fullName,
             password: encryptedPassword,
             email,
-            service,
             phone,
             avatar: {
                 public_id: result.public_id,
                 url: result.secure_url
-            }
+            },
+            role: service
         });
 
 
