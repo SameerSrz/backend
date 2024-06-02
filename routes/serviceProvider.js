@@ -11,6 +11,6 @@ const upload = multer({ storage: storage });
 router.post("/register", singleUpload , register);
 router.post("/login", login);
 router.post("/update-location", updateLocation)
-router.get("/get-data", getDataUsingRole)
+router.post("/get-data", getDataUsingRole)
 
 module.exports = router;
