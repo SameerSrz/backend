@@ -90,7 +90,29 @@ const login = async (req, res) => {
   }
 };
 
+const updateLocation = async (req,res) =>{
+  try {
+    const { userId, location } = req.body;
+    if (!userId || !location) {
+      return res.status(400).send({ success: false, message: 'User ID and location are required.' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ success: false, message: 'User not found.' });
+    }
+
+    user.location = location;
+    await user.save();
+    res.send({ success: true, message: 'Location updated successfully.', user });
+
+  } catch (error) {
+    sendResponse(res, 500, error);
+  }
+}
+
 module.exports = {
   register,
   login,
+  updateLocation,
 };
