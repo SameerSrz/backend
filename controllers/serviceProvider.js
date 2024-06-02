@@ -111,8 +111,19 @@ const updateLocation = async (req,res) =>{
   }
 }
 
+const getDataUsingRole = async (req,res) =>{
+  try {
+    const { role } = req.body;
+    const data = await User.find({ role: role });
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error });
+  }
+}
+
 module.exports = {
   register,
   login,
   updateLocation,
+  getDataUsingRole,
 };
