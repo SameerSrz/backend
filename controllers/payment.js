@@ -1,6 +1,6 @@
 const Stripe = require('stripe');
 const { sendResponse } = require("../utils/responseHandler");
-const stripe = Stripe(process.env.STRIPE_SECRET);
+const stripe = Stripe('sk_test_51KrXtbHLo4sgkNKUHT9XLWvuxPnFCNzhm7LfyFkueICEaoB8GYvMQ1kyqZJniHYsmKOunCJc3cz1BLvQh2nps0JR00lI1xKGMI');
 
 
 
