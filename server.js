@@ -37,6 +37,7 @@ cloudinary.config({
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/serviceProviderAuth", require("./routes/serviceProvider"));
+app.use("/api/payment",require("./routes/payment"))
 
 
 app.get("/", (req, res) => {
