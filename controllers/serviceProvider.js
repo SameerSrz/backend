@@ -124,14 +124,14 @@ const getDataUsingRole = async (req,res) =>{
 const feedback = async (req,res) =>{
   try {
     const { providerId, username, feedback, rating } = req.body;
-    const serviceProvider = await User.findById(providerId);
+    const user = await User.findById(providerId);
     
-    if (!serviceProvider) {
+    if (!user) {
         return res.status(404).send({ error: 'ServiceProvider not found' });
     }
 
-    serviceProvider.feedback.push({ username, comment: feedback, rating });
-    await serviceProvider.save();
+    user.feedback.push({ username, comment: feedback, rating });
+    await user.save();
     
     res.send({ message: 'Feedback submitted successfully' });
 } catch (error) {

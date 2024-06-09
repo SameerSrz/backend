@@ -68,6 +68,11 @@ const userSchema = new mongoose.Schema({
   latitude: Number,
   longitude: Number,
 },
+feedback: [{
+  username: String,
+  comment: String,
+  rating: Number,
+}],
  createdAt:{
   type: Date,
   default: Date.now(),
