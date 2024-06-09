@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const { register, login, updateLocation, getDataUsingRole } = require("../controllers/serviceProvider");
+const { register, login, updateLocation, getDataUsingRole, feedback } = require("../controllers/serviceProvider");
 const { singleUpload } = require("../multer")
 
 const router = express.Router();
@@ -12,5 +12,6 @@ router.post("/register", singleUpload , register);
 router.post("/login", login);
 router.post("/update-location", updateLocation)
 router.post("/get-data", getDataUsingRole)
+router.post("/submit-feedback", feedback)
 
 module.exports = router;

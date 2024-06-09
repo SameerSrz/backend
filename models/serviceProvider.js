@@ -56,6 +56,8 @@ const serviceProvider = new mongoose.Schema({
       },
     }
   ],
+  rating: Number,
+  feedback: [feedbackSchema],
   role:{
     type: String,
     default: "serviceProvider",
@@ -74,6 +76,13 @@ const serviceProvider = new mongoose.Schema({
  },
  resetPasswordToken: String,
  resetPasswordTime: Date,
+});
+
+const feedbackSchema = new mongoose.Schema({
+  username: String,
+  comment: String,
+  rating: Number,
+  date: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("ServiceProvider", serviceProvider);
