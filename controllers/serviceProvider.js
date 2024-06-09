@@ -124,7 +124,7 @@ const getDataUsingRole = async (req,res) =>{
 const feedback = async (req,res) =>{
   try {
     const { providerId, username, feedback, rating } = req.body;
-    const serviceProvider = await ServiceProvider.findById(providerId);
+    const serviceProvider = await User.findById(providerId);
     
     if (!serviceProvider) {
         return res.status(404).send({ error: 'ServiceProvider not found' });
