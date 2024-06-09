@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
+const feedbackSchema = new mongoose.Schema({
+  username: String,
+  comment: String,
+  rating: Number,
+  date: { type: Date, default: Date.now }
+});
+
 const serviceProvider = new mongoose.Schema({
   username:{
     type: String,
@@ -78,11 +86,6 @@ const serviceProvider = new mongoose.Schema({
  resetPasswordTime: Date,
 });
 
-const feedbackSchema = new mongoose.Schema({
-  username: String,
-  comment: String,
-  rating: Number,
-  date: { type: Date, default: Date.now }
-});
+
 
 module.exports = mongoose.model("ServiceProvider", serviceProvider);
